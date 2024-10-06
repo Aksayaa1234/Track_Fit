@@ -10,7 +10,7 @@ function App() {
     <>
      <CssBaseline/>
      <Navbar/>
-     <Login/>
+
     </>
   )
 }
