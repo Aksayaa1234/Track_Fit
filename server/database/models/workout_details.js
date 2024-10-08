@@ -28,6 +28,7 @@ const workout_detailsSchema=mongoose.Schema({
     userId:{
         type:mongoose.Schema.ObjectId,
         ref:"user",
+        default:null
     }
 })
 

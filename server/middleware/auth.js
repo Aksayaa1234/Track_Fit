@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken")
 
 const auth=(req,res,next)=>{
-    try{
-        let token=res.cookies.key;
+    try{        
+        let token=req.cookies.key;
         if(!token)
         {
             res.status(400);
@@ -22,4 +22,4 @@ const auth=(req,res,next)=>{
     }
 }
 
-module.export=auth;
+module.exports={auth};

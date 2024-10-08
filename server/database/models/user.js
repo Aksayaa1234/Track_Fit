@@ -11,7 +11,8 @@ require("../connect");
         type:String,
         lowercase:true,
         trim:true,
-        require:true
+        require:true,
+        unique:true
     },
     password:{
         type:String,

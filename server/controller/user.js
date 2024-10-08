@@ -29,7 +29,7 @@ const login=async(req,res)=>{
         if(!data)
         {
             res.status(400);
-            res.json({message:"invalid email"});
+            res.json({message:"invalid credentials"});
             return;
         }
         if(await bcrypt.compare(req.body.password,data.password))
@@ -42,7 +42,7 @@ const login=async(req,res)=>{
         }
         else{
             res.status(400);
-            res.json({message:"invalid password"});
+            res.json({message:"invalid credentials"});
             return;
         }
     }
