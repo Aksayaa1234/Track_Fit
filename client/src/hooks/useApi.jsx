@@ -4,8 +4,8 @@ import axios from "axios";
 export const useGetApi=(url,query,body={})=>{
 
     let [state,setState]=useState();
-    let [bodyState,setBodyState]=useState();
-    let [queryState,setQueryState]=useState();
+    let [bodyState,setBodyState]=useState(query);
+    let [queryState,setQueryState]=useState(body);
 
     useEffect(()=>{
         if(queryState==null)
@@ -32,8 +32,8 @@ export const useGetApi=(url,query,body={})=>{
 export const usePostApi=(url,body,query={})=>{
 
     let [state,setState]=useState();
-    let [bodyState,setBodyState]=useState();
-    let [queryState,setQueryState]=useState();
+    let [bodyState,setBodyState]=useState(body);
+    let [queryState,setQueryState]=useState(query);
 
     useEffect(()=>{
         if(bodyState==null)
@@ -42,7 +42,7 @@ export const usePostApi=(url,body,query={})=>{
         ...bodyState
         })
         .then((res)=>{
-            console.log(res.data);
+            // console.log(res.data);
             setState(()=>(res.data));
         })
         .catch((error) => {

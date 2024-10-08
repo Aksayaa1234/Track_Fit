@@ -18,11 +18,11 @@ export default function SignIn() {
   useEffect(() => {
     //console.log(state.message);
     if (state?.message == 'valid user') {
-      navigate("/home");
+      navigate("/");
     } else if (state?.message == 'invalid credentials') {
       setError(true);
     } else {
-      setError(false); // Reset error on other messages
+      setError(false); 
     }
   }, [state, navigate]);
 

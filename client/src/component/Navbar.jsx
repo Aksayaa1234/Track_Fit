@@ -7,20 +7,19 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import Avatar from '@mui/material/Avatar';
 import Cookies from 'js-cookie'; // Assuming you are using js-cookie for cookie management
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  //const [anchorElNav, setAnchorElNav] =useState(null);
   const [anchorElUser, setAnchorElUser]=useState(null);
+  let navigate=useNavigate();
 
   useEffect(() => {
   
     const token = Cookies.get('key'); 
-    //console.log(token);
     if (token) {
       setIsLoggedIn(true);
     } else {
@@ -32,6 +31,7 @@ export default function Navbar() {
     
     Cookies.remove('key'); 
     setIsLoggedIn(false);
+    navigate("/");
   };
 
   const handleOpenUserMenu = (event) => {
@@ -73,7 +73,7 @@ export default function Navbar() {
           >
             <Box component="span" sx={{ color: "gold.main" }}>TRACK</Box>FIT
           </Typography>
-          <Button component={Link} to="/home" color="inherit">
+          <Button component={Link} to="/" color="inherit">
             <Typography
               sx={{
                 display: { xs: 'none', sm: 'inline' },
@@ -86,6 +86,36 @@ export default function Navbar() {
               Home
             </Typography>
           </Button>
+          {isLoggedIn &&
+          <div>
+          <Button component={Link} to="/dashboard" color="inherit">
+            <Typography
+              sx={{
+                display: { xs: 'none', sm: 'inline' },
+                "&:hover": { color: 'gold.main' },
+                fontFamily: 'monospace',
+                letterSpacing: '.3rem',
+                fontWeight: 700,
+                color: "white.main"
+              }}>
+              Dashboard
+            </Typography>
+          </Button>
+          <Button component={Link} to="/tracker" color="inherit">
+            <Typography
+              sx={{
+                display: { xs: 'none', sm: 'inline' },
+                "&:hover": { color: 'gold.main' },
+                fontFamily: 'monospace',
+                letterSpacing: '.3rem',
+                fontWeight: 700,
+                color: "white.main"
+              }}>
+              Tracker
+            </Typography>
+          </Button>
+          </div>
+          }
           <Button component={Link} to="/about" color="inherit">
             <Typography
               sx={{

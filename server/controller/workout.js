@@ -110,7 +110,6 @@ const workoutDisplay=async(req,res)=>{
 const workoutDisplayDefault=async(req,res)=>{
     try{
         let filter={userId:null};
-        console.log("working");
         let data= await workout_detailsModel.find(filter).populate({path:"workoutId",select:"workout_type workout_name"});
         res.status(200);
         res.json({message:"data",data:data});
@@ -121,5 +120,6 @@ const workoutDisplayDefault=async(req,res)=>{
         res.json({message:"server error"});
     }
 }
+
 
 module.exports={addWorkout,workoutDisplay,workoutDisplayDefault,addWorkoutDefault};

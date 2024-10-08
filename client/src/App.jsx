@@ -6,14 +6,17 @@ import Profile from './pages/Profile'
 import Navbar from './component/Navbar'
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material'
 import { BrowserRouter, Route, Routes  } from 'react-router-dom'
+import { Dashboard } from './pages/Dashboard'
+import { Tracker } from './pages/Tracker'
 
 const theme = createTheme({
     palette:{
         primary:{
-            main:"#001B3E"
+            main:"#001B3E",
+            light:"#314459"
         },
         secondary:{
-            main:"#939185"
+            main:"#9dbbe0"
         },
         white:{
             main:"#EEEDEB",
@@ -38,11 +41,13 @@ function App() {
                     <BrowserRouter>
                         <Navbar/>
                         <Routes> 
-                            <Route path='/home' element={<Home/>}/>
+                            <Route path='/' element={<Home/>}/>
+                            <Route path='/dashboard' element={<Dashboard/>}/>
                             <Route path='/sign-in' element={<SignIn/>}/>
                             <Route path='/sign-up' element={<SignUp/>}/>
                             <Route path='/about' element={<About/>}/>
                             <Route path='/profile' element={<Profile/>}/>
+                            <Route path='/tracker' element={<Tracker/>}/>
                         </Routes>
                     </BrowserRouter>
                 </ThemeProvider>
