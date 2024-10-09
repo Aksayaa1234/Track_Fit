@@ -67,7 +67,8 @@ const addWorkout=async(req,res)=>{
         {
             filter["distance"]=parseInt(req.body.distance);
         }
-        filter["userId"]=new mongoose.Types.ObjectId(req.userId);
+        filter["$or"]=[ { userId:new mongoose.Types.ObjectId(req.userId)}, { userId: null } ];
+        //console.log(filter);
         let details= await workout_detailsModel.findOne(filter);
         let workout_detailsId;
         if(!details)
@@ -86,6 +87,7 @@ const addWorkout=async(req,res)=>{
         return;
     }
     catch(err){
+        //console.log(err);
         res.status(500);
         res.json({message:"server error"});
     }
