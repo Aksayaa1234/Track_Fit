@@ -18,7 +18,7 @@ export default function SignIn() {
   useEffect(() => {
     //console.log(state.message);
     if (state?.message == 'valid user') {
-      navigate("/");
+      navigate("/dashboard");
     } else if (state?.message == 'invalid credentials') {
       setError(true);
     } else {

@@ -32,6 +32,7 @@ export const Dashboard=()=>{
         const newErrors = { workout_type: workout_type === '', workout_name: workout_name === '', duration: duration === '', caleories_burn: caleories_burn === '', distance_count: !count && !distance };
         
         setErrors(newErrors);
+        //console.log(customWorkout)
         if (Object.values(newErrors).some((error) => error)) {
             return;
         }
@@ -52,7 +53,7 @@ export const Dashboard=()=>{
 
     return (
         <>
-        <Box sx={{marginTop:"2rem",marginRight:"2rem",marginLeft:"2rem"}}>
+        <Box sx={{marginTop:"2rem",marginRight:"auto",marginLeft:"10%"}}>
             {caleories && caleories.data && <StatesCards data={caleories.data}/>}
             <Typography sx={{color:"gold.main",marginBlock:"1rem"}} variant="h5">Workouts</Typography>
             <Box sx={{display:"flex",gap:"1.5rem",flexWrap:"wrap"}}>

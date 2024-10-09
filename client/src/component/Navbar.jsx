@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import Avatar from '@mui/material/Avatar';
 import Cookies from 'js-cookie'; // Assuming you are using js-cookie for cookie management
@@ -16,6 +16,7 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [anchorElUser, setAnchorElUser]=useState(null);
   let navigate=useNavigate();
+  let location=useLocation();
 
   useEffect(() => {
   
@@ -25,7 +26,7 @@ export default function Navbar() {
     } else {
       setIsLoggedIn(false);
     }
-  }, []);
+  },);
 
   const handleLogout = () => {
     
@@ -41,6 +42,7 @@ export default function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const isActive = (path) => location.pathname === path;
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -59,14 +61,14 @@ export default function Navbar() {
             variant="h6"
             noWrap
             component="a"
-            href="/home"
+            href="/"
             sx={{
               mr: 2,
               display: { md: 'flex' },
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: { xs: '.2rem', sm: '.3rem' },
-              color: 'white.main',
+              color: isActive("/") ? "gold.main" : "white.main",
               textDecoration: 'none',
               flexGrow: 1
             }}
@@ -81,7 +83,7 @@ export default function Navbar() {
                 fontFamily: 'monospace',
                 letterSpacing: '.3rem',
                 fontWeight: 700,
-                color: "white.main"
+                color: isActive("/") ? "gold.main" : "white.main"
               }}>
               Home
             </Typography>
@@ -96,7 +98,7 @@ export default function Navbar() {
                 fontFamily: 'monospace',
                 letterSpacing: '.3rem',
                 fontWeight: 700,
-                color: "white.main"
+                color: isActive("/dashboard") ? "gold.main" : "white.main" 
               }}>
               Dashboard
             </Typography>
@@ -109,7 +111,7 @@ export default function Navbar() {
                 fontFamily: 'monospace',
                 letterSpacing: '.3rem',
                 fontWeight: 700,
-                color: "white.main"
+                color: isActive("/tracker") ? "gold.main" : "white.main"
               }}>
               Tracker
             </Typography>
@@ -124,7 +126,7 @@ export default function Navbar() {
                 fontFamily: 'monospace',
                 letterSpacing: '.3rem',
                 fontWeight: 700,
-                color: "white.main"
+                color: isActive("/about") ? "gold.main" : "white.main"
               }}>
               ABOUT
             </Typography>

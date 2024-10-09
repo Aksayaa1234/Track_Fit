@@ -20,7 +20,7 @@ export default function SignUp() {
     useEffect(() => {
         if (state?.message === 'user added') {
             navigate("/sign-in");
-        } else if (state?.message === "email already exists") {
+        } else if (state?.message == "email already exist") {
             setError(true);
         }
     }, [state, navigate]);
