@@ -21,15 +21,58 @@ const workoutDisplayDate=async(req,res)=>{
         {
             ids.push(data[i].workout_detailsId);
         }
-        let uniqueWorkouts= await workout_detailsModel.find({_id:{$in:ids}}).populate({path:"workoutId",select:"workout_type workout_name"});
-        let workoutMap = new Map(uniqueWorkouts.map((workout) => [workout._id.toString(), workout]));
-        let workouts = ids.map((id) => workoutMap.get(id.toString()));
+        //finding the details of unique workouts
+        // and store it to the corresponding  workout also duplicate. in this case duplicate is also seen
+        let uniqueWorkouts= await workout_detailsModel.find({_id:{$in:ids}}).populate({path:"workoutId",select:"workout_type workout_name"});   
+        let workouts = ids.map(id => uniqueWorkouts.find(workout => workout._id.toString() === id.toString()));
         res.status(200);
         res.json({message:"data",data:workouts});
         return;
     }
     catch(err){
         
+        res.status(500);
+        res.json({message:"server error"});
+    }
+}
+
+const caleoriesChart= async(req,res)=>{
+    try{
+        let specificDate=new Date(req.body.date );
+        let nextDay=new Date(req.body.next_date );
+        specificDate.setHours(0, 0, 0, 0);
+        nextDay.setHours(0, 0, 0, 0);
+        let data= await workoutlogsModel.find({userId:new mongoose.Types.ObjectId(req.userId),createdAt: { $gte: specificDate, $lt: nextDay}},{workout_detailsId:1,_id:0})
+
+        if(data.length==0)
+        {
+            res.status(400);
+            res.json({message:"No  workouts done"});
+            return;
+        }
+        let ids=[]
+        for(i=0;i<data.length;i++)
+        {
+            ids.push(data[i].workout_detailsId);
+        }
+        let uniqueWorkouts= await workout_detailsModel.find({_id:{$in:ids}}).populate({path:"workoutId",select:"workout_type workout_name"});   
+        let workoutSummary={};
+        let workouts = ids.map(id => uniqueWorkouts.find(workout => workout._id.toString() === id.toString()));
+        for(let i=0;i<workouts.length;i++)
+        {
+            let workoutType=workouts[i].workoutId.workout_type;
+            let caleories=workouts[i].caleories_burn;
+            if(workoutSummary[workoutType])
+                workoutSummary[workoutType]+=caleories;
+            else
+                workoutSummary[workoutType]=caleories;
+        }
+        res.status(200);
+        res.json({message:"data",data:workoutSummary});
+        return;
+    }
+    catch(err){   
+        //console.log(err)
         res.status(500);
         res.json({message:"server error"});
     }
@@ -70,10 +113,10 @@ const totalCaleories=async(req,res)=>{
         return;
     }
     catch(err){
-        console.log(err);
+        
         res.status(500);
         res.json({message:"server error"});
     }
 }
 
-module.exports={workoutDisplayDate,totalCaleories}
+module.exports={workoutDisplayDate,totalCaleories,caleoriesChart};

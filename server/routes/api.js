@@ -14,6 +14,7 @@ router.post("/workout/", auth,workoutCond.workoutDisplay);
 router.post("/workout/default/add",workoutCond.addWorkoutDefault);
 router.get("/workout/default",workoutCond.workoutDisplayDefault);
 router.post("/workout/date",auth,workoutlogsCond.workoutDisplayDate);
+router.post("/workout/date/caleories",auth,workoutlogsCond.caleoriesChart);
 router.post("/workout/caleories",auth,workoutlogsCond.totalCaleories);
 
 module.exports=router;
